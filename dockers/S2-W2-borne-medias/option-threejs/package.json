@@ -1,0 +1,18 @@
+{
+  "name": "borne-medias-threejs",
+  "version": "1.0.0",
+  "description": "Borne medias - jeu 3D Repere les belugas dans le Saint-Laurent",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host"
+  },
+  "dependencies": {
+    "three": "0.165.0"
+  },
+  "devDependencies": {
+    "vite": "5.4.10"
+  }
+}

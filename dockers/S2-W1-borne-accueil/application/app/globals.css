@@ -1,0 +1,381 @@
+:root {
+  --fond-page: #f5f0e1;
+  --fond-boite: #fffdf6;
+  --texte-principal: #2a2a2a;
+  --texte-doux: #5a5a5a;
+  --accueil-rouge: #d23030;
+  --vert-rotonde: #1f4d2c;
+  --ombre-douce: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
+  background: var(--fond-page);
+  color: var(--texte-principal);
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+#borne {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  width: 100vw;
+}
+
+#entete {
+  background: var(--vert-rotonde);
+  color: #ffffff;
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--ombre-douce);
+  z-index: 5;
+}
+
+#entete-titre {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+#entete-sous-titre {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+#entete-date {
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+
+#entete-bascule {
+  display: inline-flex;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.bascule-action {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 8px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.18s ease, color 0.18s ease;
+  letter-spacing: 0.02em;
+}
+
+.bascule-action:hover {
+  color: #ffffff;
+}
+
+.bascule-action.bascule-action-actif {
+  background: #ffffff;
+  color: var(--vert-rotonde);
+}
+
+#horaires {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--fond-boite);
+  border-radius: 18px;
+  padding: 28px 32px;
+  box-shadow: var(--ombre-douce);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#horaires-titre {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  color: var(--vert-rotonde);
+}
+
+#horaires-sous-titre {
+  font-size: 0.85rem;
+  color: var(--texte-doux);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+#horaires-liste {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.horaire {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  align-items: start;
+}
+
+.horaire:last-child {
+  border-bottom: none;
+}
+
+.horaire.horaire-bientot {
+  background: rgba(244, 196, 48, 0.22);
+  margin-left: -10px;
+  margin-right: -10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+}
+
+.horaire-heure {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--vert-rotonde);
+}
+
+.horaire-titre {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.horaire-pavillon {
+  font-size: 0.84rem;
+  color: var(--texte-doux);
+  margin-top: 3px;
+}
+
+.horaire-pastille {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 7px;
+  vertical-align: middle;
+}
+
+.horaire-pastille.pavillon-marin {
+  background: #3d96bd;
+}
+
+.horaire-pastille.pavillon-foret {
+  background: #82a04c;
+}
+
+.horaire-pastille.pavillon-prairie {
+  background: #bd953a;
+}
+
+.horaire-pastille.pavillon-voyageurs {
+  background: #97633a;
+}
+
+#contenu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+}
+
+#carte {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#carte-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+
+.pavillon {
+  cursor: pointer;
+  transition: filter 0.18s ease;
+}
+
+.pavillon:hover .pavillon-corps {
+  filter: brightness(1.08);
+}
+
+.pavillon-corps {
+  stroke: rgba(0, 0, 0, 0.15);
+  stroke-width: 1.5;
+  transition: stroke 0.2s ease, stroke-width 0.2s ease;
+}
+
+.pavillon.pavillon-actif .pavillon-corps {
+  stroke: var(--accueil-rouge);
+  stroke-width: 4;
+}
+
+.pavillon-titre {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+  fill: #ffffff;
+  letter-spacing: 0.06em;
+}
+
+.pavillon-sous-titre {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  fill: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.04em;
+}
+
+.zone-titre {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 30px;
+  fill: #ffffff;
+  letter-spacing: 0.04em;
+}
+
+.zone-titre-prairie {
+  fill: #ffffff;
+}
+
+.sentier-nom {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  fill: #6b4226;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: apparition-nom-sentier 600ms ease-out 1.6s forwards;
+}
+
+.sentier-trace {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: tracer-sentier 1.5s ease-out forwards;
+}
+
+.sentier-trace:nth-child(1) { animation-delay: 0ms; }
+.sentier-trace:nth-child(2) { animation-delay: 200ms; }
+.sentier-trace:nth-child(3) { animation-delay: 400ms; }
+.sentier-trace:nth-child(4) { animation-delay: 600ms; }
+.sentier-trace:nth-child(5) { animation-delay: 800ms; }
+.sentier-trace:nth-child(6) { animation-delay: 1000ms; }
+
+@keyframes tracer-sentier {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes apparition-nom-sentier {
+  to {
+    opacity: 1;
+  }
+}
+
+#vous-etes-ici-pin {
+  fill: var(--accueil-rouge);
+  stroke: #ffffff;
+  stroke-width: 3;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.4));
+  animation: pulser-pin 1.6s ease-in-out infinite;
+  transform-origin: 600px 567px;
+  transform-box: view-box;
+}
+
+#vous-etes-ici-etiquette {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  fill: var(--accueil-rouge);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@keyframes pulser-pin {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+#fiche-pavillon {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  width: 380px;
+  max-height: 320px;
+  background: var(--fond-boite);
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: var(--ombre-douce), 0 0 0 4px rgba(0, 0, 0, 0.04);
+  border-top: 6px solid var(--vert-rotonde);
+  z-index: 10;
+}
+
+#fiche-pavillon-titre {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+#fiche-pavillon-sous-titre {
+  font-size: 0.85rem;
+  color: var(--texte-doux);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+#fiche-pavillon-description {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+#fiche-pavillon-fermer {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--texte-doux);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: background 0.15s ease;
+}
+
+#fiche-pavillon-fermer:hover {
+  background: rgba(0, 0, 0, 0.06);
+}

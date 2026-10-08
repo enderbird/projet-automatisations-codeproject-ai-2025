@@ -1,0 +1,20 @@
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Binaires medias generes au build (pas dans git)
+*.wav
+*.ogg
+*.mp3
+*.png
+*.jpg
+*.jpeg
+
+# IDE
+.vscode/
+.idea/
+
+# Capture d'ecran de demonstration (optionnel)
+captures/

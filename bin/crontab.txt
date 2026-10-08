@@ -1,0 +1,1 @@
+0 2 * * * bash /usr/local/bin/sauvegarde.sh >> /root/audit/backup.log 2>&1

@@ -1,0 +1,22 @@
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Modele ONNX et labels (rapatries pendant le build, pas dans git)
+*.onnx
+imagenet-labels.txt
+
+# Photos generees pendant le build (pas dans git)
+application/photos/
+*.jpg
+*.jpeg
+*.png
+
+# IDE
+.vscode/
+.idea/
+
+# Capture d'ecran de demonstration (optionnel)
+captures/

@@ -1,0 +1,496 @@
+/* Décoration moderne du catalogue interactif des espèces. */
+/* Palette anthracite + lime + magenta, sans-serif, persona stagiaire info gen-Z. */
+
+:root {
+  --fond-page: #0d1117;
+  --fond-secondaire: #161b22;
+  --fond-carte: #1c2128;
+  --texte-principal: #e6edf3;
+  --texte-doux: #8b949e;
+  --texte-faible: #6a7785;
+
+  --accent-lime: #a3e635;
+  --accent-lime-fonce: #65a30d;
+  --accent-magenta: #ec4899;
+  --accent-magenta-fonce: #be185d;
+  --accent-cyan: #22d3ee;
+
+  --marin: #22d3ee;
+  --forestier: #a3e635;
+  --pollinisateurs: #ec4899;
+
+  --bordure: #30363d;
+  --bordure-active: #484f58;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Inter", -apple-system, system-ui, "Segoe UI", sans-serif;
+  background: var(--fond-page);
+  color: var(--texte-principal);
+  line-height: 1.55;
+}
+
+/* ---------- Entête ---------- */
+
+header#entete {
+  background: var(--fond-secondaire);
+  border-bottom: 1px solid var(--bordure);
+  padding: 60px 6vw 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+#entete::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(163,230,53,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+#entete::after {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(236,72,153,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+#entete > * { position: relative; z-index: 2; }
+
+#entete-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  background: rgba(163,230,53,0.12);
+  color: var(--accent-lime);
+  border: 1px solid rgba(163,230,53,0.3);
+  border-radius: 100px;
+  margin-bottom: 18px;
+}
+
+#entete-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--accent-lime);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-lime);
+}
+
+#entete-titre {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin-bottom: 14px;
+  line-height: 1;
+}
+
+#entete-titre span {
+  background: linear-gradient(135deg, var(--accent-lime), var(--accent-magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+#entete-sous-titre {
+  color: var(--texte-doux);
+  max-width: 640px;
+  font-size: 1.05rem;
+}
+
+/* ---------- Contenu principal ---------- */
+
+#contenu {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 50px 6vw 100px;
+}
+
+.section-titre {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-lime);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.section-grand-titre {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* ---------- Barre de recherche ---------- */
+
+#barre-recherche {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+#champs-recherche {
+  width: 100%;
+  background: var(--fond-secondaire);
+  border: 1px solid var(--bordure);
+  color: var(--texte-principal);
+  padding: 14px 18px 14px 44px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#champs-recherche::placeholder { color: var(--texte-faible); }
+
+#champs-recherche:focus {
+  outline: none;
+  border-color: var(--accent-lime);
+  box-shadow: 0 0 0 3px rgba(163,230,53,0.15);
+}
+
+#barre-recherche::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ---------- Filtres ---------- */
+
+#filtres { margin-bottom: 36px; }
+
+#filtres-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filtre-action {
+  padding: 8px 16px;
+  background: var(--fond-secondaire);
+  color: var(--texte-doux);
+  border: 1px solid var(--bordure);
+  border-radius: 100px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filtre-action::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bordure-active);
+  transition: background 0.2s;
+}
+
+.filtre-action[data-couleur="marin"]::before { background: var(--marin); }
+.filtre-action[data-couleur="forestier"]::before { background: var(--forestier); }
+.filtre-action[data-couleur="pollinisateurs"]::before { background: var(--pollinisateurs); }
+
+.filtre-action:hover {
+  border-color: var(--bordure-active);
+  color: var(--texte-principal);
+}
+
+.filtre-action[data-actif="oui"] {
+  background: var(--accent-lime);
+  color: var(--fond-page);
+  border-color: var(--accent-lime);
+  font-weight: 700;
+}
+
+.filtre-action[data-actif="oui"]::before { background: var(--fond-page); }
+
+/* ---------- Grille des espèces ---------- */
+
+#especes-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.espece-vignette {
+  background: var(--fond-carte);
+  border-radius: 12px;
+  padding: 22px 22px 24px;
+  text-decoration: none;
+  color: var(--texte-principal);
+  border: 1px solid var(--bordure);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.3s;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.espece-vignette:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-lime);
+  box-shadow: 0 8px 24px rgba(163,230,53,0.08);
+}
+
+.espece-vignette[data-couleur="marin"]:hover { border-color: var(--marin); box-shadow: 0 8px 24px rgba(34,211,238,0.1); }
+.espece-vignette[data-couleur="pollinisateurs"]:hover { border-color: var(--pollinisateurs); box-shadow: 0 8px 24px rgba(236,72,153,0.1); }
+
+.espece-vignette-ecosysteme {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  margin-bottom: 14px;
+  padding: 3px 10px;
+  background: var(--fond-secondaire);
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+.espece-vignette[data-couleur="marin"] .espece-vignette-ecosysteme { color: var(--marin); }
+.espece-vignette[data-couleur="forestier"] .espece-vignette-ecosysteme { color: var(--forestier); }
+.espece-vignette[data-couleur="pollinisateurs"] .espece-vignette-ecosysteme { color: var(--pollinisateurs); }
+
+.espece-vignette-nom {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+}
+
+.espece-vignette-latin {
+  font-style: italic;
+  color: var(--texte-doux);
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}
+
+.espece-vignette-statut {
+  font-size: 0.78rem;
+  color: var(--texte-faible);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.espece-vignette-statut::before {
+  content: "•";
+  color: var(--accent-lime);
+}
+
+#message-vide, #erreur {
+  background: var(--fond-secondaire);
+  padding: 48px;
+  border-radius: 12px;
+  text-align: center;
+  color: var(--texte-doux);
+  border: 1px dashed var(--bordure-active);
+}
+
+#erreur {
+  border-color: var(--accent-magenta);
+  background: rgba(236,72,153,0.06);
+}
+
+.erreur-titre {
+  color: var(--accent-magenta);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+
+.erreur-detail {
+  font-family: "JetBrains Mono", "Menlo", monospace;
+  font-size: 0.85rem;
+  background: var(--fond-page);
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  color: var(--texte-doux);
+  text-align: left;
+  border: 1px solid var(--bordure);
+}
+
+.erreur-aide {
+  font-size: 0.9rem;
+  color: var(--texte-faible);
+}
+
+footer#pied {
+  background: var(--fond-secondaire);
+  border-top: 1px solid var(--bordure);
+  text-align: center;
+  padding: 30px 6vw;
+  font-size: 0.85rem;
+  color: var(--texte-faible);
+  letter-spacing: 0.5px;
+}
+
+footer#pied a {
+  color: var(--accent-lime);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ---------- Page fiche ---------- */
+
+#fiche-entete {
+  background: var(--fond-secondaire);
+  border-bottom: 1px solid var(--bordure);
+  padding: 60px 6vw 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+#fiche-entete::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(163,230,53,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+#fiche-entete[data-couleur="marin"]::before { background: radial-gradient(circle at top right, rgba(34,211,238,0.06) 0%, transparent 50%); }
+#fiche-entete[data-couleur="pollinisateurs"]::before { background: radial-gradient(circle at top right, rgba(236,72,153,0.06) 0%, transparent 50%); }
+
+#fiche-entete > * { position: relative; z-index: 2; }
+
+#fiche-retour {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--texte-doux);
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin-bottom: 22px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+#fiche-retour:hover { color: var(--accent-lime); }
+
+#fiche-ecosysteme {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-lime);
+  margin-bottom: 14px;
+  padding: 4px 12px;
+  background: rgba(163,230,53,0.1);
+  border: 1px solid rgba(163,230,53,0.25);
+  border-radius: 100px;
+  font-weight: 700;
+}
+
+#fiche-entete[data-couleur="marin"] #fiche-ecosysteme { color: var(--marin); background: rgba(34,211,238,0.1); border-color: rgba(34,211,238,0.25); }
+#fiche-entete[data-couleur="pollinisateurs"] #fiche-ecosysteme { color: var(--pollinisateurs); background: rgba(236,72,153,0.1); border-color: rgba(236,72,153,0.25); }
+
+#fiche-titre {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 8px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+#fiche-latin {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--texte-doux);
+  margin-bottom: 14px;
+}
+
+#fiche-statut {
+  font-size: 0.85rem;
+  color: var(--texte-faible);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#fiche-statut::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 10px var(--accent-lime);
+}
+
+#fiche-corps {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 50px 6vw 100px;
+}
+
+.fiche-section {
+  background: var(--fond-carte);
+  padding: 28px 32px;
+  border-radius: 12px;
+  border: 1px solid var(--bordure);
+  margin-bottom: 18px;
+}
+
+.fiche-section[data-theme="curiosite"] { border-color: rgba(236,72,153,0.3); background: linear-gradient(135deg, var(--fond-carte), rgba(236,72,153,0.04)); }
+
+.fiche-section-titre {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-lime);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.fiche-section[data-theme="curiosite"] .fiche-section-titre { color: var(--accent-magenta); }
+
+.fiche-section-titre::before {
+  content: "";
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+}
+
+.fiche-section p { font-size: 1rem; color: var(--texte-principal); }
+
+@media (max-width: 600px) {
+  #especes-grille { grid-template-columns: 1fr; }
+  .fiche-section { padding: 22px 20px; }
+}

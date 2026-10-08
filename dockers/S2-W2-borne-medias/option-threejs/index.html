@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Borne medias - Repere les belugas</title>
+    <link rel="stylesheet" href="/src/decoration/style.css" />
+  </head>
+  <body>
+    <header id="banniere">
+      <div id="banniere-titre">
+        Borne medias - Repere les belugas dans le Saint-Laurent
+      </div>
+      <div id="banniere-identite"></div>
+    </header>
+
+    <main id="scene">
+      <canvas id="canevas-jeu"></canvas>
+
+      <section id="tableau-bord">
+        <div id="score">
+          <span id="score-trouves">0</span> / <span id="score-total">0</span>
+          beluga(s) repere(s)
+        </div>
+        <div id="instructions">
+          Glisse la souris pour pivoter - Clique sur un beluga pour le reperer
+        </div>
+      </section>
+
+      <section id="message-final">
+        <div id="message-final-titre">Tous les belugas reperes !</div>
+        <div id="message-final-detail">
+          Le troupeau de belugas du Saint-Laurent compte moins de mille
+          individus. Chaque rencontre est un privilege.
+        </div>
+        <button id="action-rejouer" type="button">Recommencer la partie</button>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

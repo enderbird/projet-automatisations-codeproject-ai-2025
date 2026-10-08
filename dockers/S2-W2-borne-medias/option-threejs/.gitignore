@@ -1,0 +1,28 @@
+# Dependances Node (regeneres par npm install)
+node_modules/
+
+# Sortie de build Vite (regenere par npm run build)
+dist/
+.vite/
+
+# Caches divers
+.cache/
+.parcel-cache/
+
+# Lock optionnels selon politique du cours - on commit package-lock.json
+# pour la reproductibilite, mais pas yarn.lock ou pnpm-lock.yaml.
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+
+# Fichiers d'editeur
+.vscode/
+.idea/
+.DS_Store
+
+# Captures de demonstration
+captures/

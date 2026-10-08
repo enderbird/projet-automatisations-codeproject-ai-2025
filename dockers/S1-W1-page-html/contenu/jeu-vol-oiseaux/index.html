@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vol en formation V - Encyclopédie des oiseaux</title>
+<link rel="stylesheet" href="../decoration/decoration-encyclopedie.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<style>
+  #toile-jeu {
+    display: block;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #87ceeb 0%, #cfe5f0 100%);
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(30,96,145,0.18);
+    cursor: crosshair;
+  }
+
+  #jeu-conteneur {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 6vw 60px;
+  }
+
+  #jeu-bandeau {
+    background: var(--bleu-fleuve);
+    color: white;
+    padding: 20px 26px;
+    border-radius: 6px 6px 0 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+  }
+
+  #jeu-bandeau-info {
+    font-size: 0.95rem;
+  }
+
+  #jeu-bandeau-info strong { color: var(--or-migration); }
+
+  #jeu-bandeau-statistiques {
+    display: flex;
+    gap: 18px;
+    font-size: 0.85rem;
+  }
+
+  .jeu-statistique {
+    background: rgba(255,255,255,0.12);
+    padding: 6px 14px;
+    border-radius: 4px;
+  }
+
+  .jeu-statistique-etiquette {
+    opacity: 0.7;
+    font-size: 0.75rem;
+    margin-right: 6px;
+  }
+
+  .jeu-statistique-valeur {
+    font-weight: 700;
+  }
+
+  #jeu-toile-cadre {
+    background: var(--fond-boite);
+    padding: 14px;
+    border-radius: 0 0 6px 6px;
+    border: 1px solid var(--bordure);
+    border-top: none;
+  }
+
+  #jeu-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .jeu-action {
+    background: var(--fond-boite);
+    border: 1px solid var(--bordure);
+    color: var(--texte-principal);
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+
+  .jeu-action:hover {
+    background: var(--bleu-fleuve);
+    color: white;
+    border-color: var(--bleu-fleuve);
+  }
+
+  #jeu-explication {
+    background: var(--or-migration-pale);
+    padding: 22px 26px;
+    border-radius: 6px;
+    margin-top: 24px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  #jeu-explication h3 {
+    color: var(--bleu-fleuve);
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+  }
+</style>
+</head>
+<body>
+
+<header id="fiche-entete">
+  <a id="fiche-retour" href="../index.html">&lt;- Retour à l'encyclopédie</a>
+  <h1 id="fiche-titre">Le vol en formation</h1>
+  <p id="fiche-nom-latin">Simulateur du vol en V des oiseaux migrateurs</p>
+</header>
+
+<main id="jeu-conteneur">
+
+  <div id="jeu-bandeau">
+    <div id="jeu-bandeau-info">
+      <strong>Cliquez</strong> sur la toile pour ajouter un oiseau. <strong>Bougez la souris</strong> pour guider la bande. Observez comment la formation V se reconstitue d'elle-même.
+    </div>
+    <div id="jeu-bandeau-statistiques">
+      <div class="jeu-statistique">
+        <span class="jeu-statistique-etiquette">Oiseaux</span>
+        <span class="jeu-statistique-valeur" id="compteur-oiseaux">0</span>
+      </div>
+      <div class="jeu-statistique">
+        <span class="jeu-statistique-etiquette">Vitesse moyenne</span>
+        <span class="jeu-statistique-valeur" id="compteur-vitesse">0</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="jeu-toile-cadre">
+    <div id="toile-jeu"></div>
+  </div>
+
+  <div id="jeu-actions">
+    <button class="jeu-action" id="action-ajouter-oiseau">Ajouter un oiseau</button>
+    <button class="jeu-action" id="action-vider-bande">Vider la bande</button>
+    <button class="jeu-action" id="action-bande-pleine">Bande complète (12 oiseaux)</button>
+  </div>
+
+  <section id="jeu-explication">
+    <h3>Pourquoi la formation V ?</h3>
+    <p>Quand un oiseau bat des ailes, il génère un courant ascendant juste derrière lui, légèrement décalé sur les côtés. L'oiseau qui se place dans ce courant économise de l'énergie : il est porté en partie par le sillage du précédent. En répétant ce décalage de chaque côté, on obtient naturellement une formation en V.</p>
+    <p>Le poste de chef est le plus exigeant parce que le premier oiseau ne profite d'aucun sillage. C'est pourquoi les bernaches du Canada changent régulièrement de meneur, en glissant le long de la formation. La science a mesuré : le V économise jusqu'à 30 % d'énergie à la bande dans son ensemble.</p>
+  </section>
+
+</main>
+
+<footer id="pied">
+  <p>Encyclopédie du pavillon des oiseaux migrateurs - <a href="../index.html">Retour</a></p>
+</footer>
+
+<script>
+  // Jeu de simulation du vol en V-formation.
+  // Coordonnées et vitesses gérées par p5.js. Naming en mixedCase, fonctions
+  // commencent par une minuscule, classes en PascalCase.
+
+  let oiseaux = [];
+  const VITESSE_MAX = 4.5;
+  const ESPACEMENT_V = 32;
+  const RECUL_V = 28;
+
+  let largeurToile = 900;
+  let hauteurToile = 480;
+
+  class Oiseau {
+    constructor(positionX, positionY, indexBande) {
+      this.position = createVector(positionX, positionY);
+      this.vitesse = createVector(1, 0);
+      this.indexBande = indexBande;
+    }
+
+    mettreAJour(cibleSouris) {
+      if (this.indexBande === 0) {
+        this.suivreCible(cibleSouris);
+      } else {
+        this.suivrePositionDansFormation();
+      }
+      this.position.add(this.vitesse);
+      this.rebondirSurBordures();
+    }
+
+    suivreCible(cible) {
+      const direction = p5.Vector.sub(cible, this.position);
+      direction.limit(VITESSE_MAX);
+      this.vitesse.lerp(direction, 0.06);
+    }
+
+    suivrePositionDansFormation() {
+      const meneur = oiseaux[0];
+      const directionMeneur = meneur.vitesse.copy().normalize();
+      if (directionMeneur.mag() === 0) {
+        directionMeneur.set(1, 0);
+      }
+      const perpendiculaire = createVector(-directionMeneur.y, directionMeneur.x);
+      const cote = (this.indexBande % 2 === 0) ? 1 : -1;
+      const rang = Math.ceil(this.indexBande / 2);
+
+      const positionCible = meneur.position.copy()
+        .sub(directionMeneur.copy().mult(rang * RECUL_V))
+        .add(perpendiculaire.copy().mult(cote * rang * ESPACEMENT_V));
+
+      const direction = p5.Vector.sub(positionCible, this.position);
+      direction.limit(VITESSE_MAX);
+      this.vitesse.lerp(direction, 0.12);
+    }
+
+    rebondirSurBordures() {
+      const marge = 20;
+      if (this.position.x < marge) { this.position.x = marge; this.vitesse.x *= -0.5; }
+      if (this.position.x > largeurToile - marge) { this.position.x = largeurToile - marge; this.vitesse.x *= -0.5; }
+      if (this.position.y < marge) { this.position.y = marge; this.vitesse.y *= -0.5; }
+      if (this.position.y > hauteurToile - marge) { this.position.y = hauteurToile - marge; this.vitesse.y *= -0.5; }
+    }
+
+    dessiner() {
+      push();
+      translate(this.position.x, this.position.y);
+      rotate(this.vitesse.heading());
+
+      const couleurCorps = (this.indexBande === 0) ? '#d4a017' : '#1e6091';
+      fill(couleurCorps);
+      noStroke();
+
+      beginShape();
+      vertex(14, 0);
+      vertex(-8, -7);
+      vertex(-4, 0);
+      vertex(-8, 7);
+      endShape(CLOSE);
+
+      fill(couleurCorps);
+      const battement = sin(frameCount * 0.4 + this.indexBande) * 4;
+      triangle(-2, 0, -10, -10 - battement, -10, -2);
+      triangle(-2, 0, -10, 10 + battement, -10, 2);
+
+      pop();
+    }
+  }
+
+  function ajouterOiseau() {
+    const indexNouveau = oiseaux.length;
+    let positionDepart;
+    if (indexNouveau === 0) {
+      positionDepart = createVector(largeurToile / 2, hauteurToile / 2);
+    } else {
+      const meneur = oiseaux[0];
+      positionDepart = meneur.position.copy().add(p5.Vector.random2D().mult(40));
+    }
+    oiseaux.push(new Oiseau(positionDepart.x, positionDepart.y, indexNouveau));
+    mettreAJourCompteur();
+  }
+
+  function viderBande() {
+    oiseaux = [];
+    mettreAJourCompteur();
+  }
+
+  function bandeComplete() {
+    viderBande();
+    for (let indexBande = 0; indexBande < 12; indexBande++) {
+      ajouterOiseau();
+    }
+  }
+
+  function mettreAJourCompteur() {
+    document.getElementById('compteur-oiseaux').textContent = oiseaux.length;
+  }
+
+  function mettreAJourVitesse() {
+    if (oiseaux.length === 0) {
+      document.getElementById('compteur-vitesse').textContent = '0';
+      return;
+    }
+    let sommeVitesse = 0;
+    for (const oiseau of oiseaux) {
+      sommeVitesse += oiseau.vitesse.mag();
+    }
+    const moyenne = (sommeVitesse / oiseaux.length).toFixed(2);
+    document.getElementById('compteur-vitesse').textContent = moyenne;
+  }
+
+  function setup() {
+    const cadre = document.getElementById('toile-jeu');
+    largeurToile = cadre.clientWidth || 900;
+    const toile = createCanvas(largeurToile, hauteurToile);
+    toile.parent('toile-jeu');
+    bandeComplete();
+
+    document.getElementById('action-ajouter-oiseau').addEventListener('click', ajouterOiseau);
+    document.getElementById('action-vider-bande').addEventListener('click', viderBande);
+    document.getElementById('action-bande-pleine').addEventListener('click', bandeComplete);
+  }
+
+  function draw() {
+    background(135, 206, 235, 40);
+
+    const cibleSouris = createVector(
+      constrain(mouseX, 0, largeurToile),
+      constrain(mouseY, 0, hauteurToile)
+    );
+
+    for (const oiseau of oiseaux) {
+      oiseau.mettreAJour(cibleSouris);
+      oiseau.dessiner();
+    }
+
+    if (frameCount % 30 === 0) {
+      mettreAJourVitesse();
+    }
+  }
+
+  function mousePressed() {
+    if (mouseX >= 0 && mouseX <= largeurToile && mouseY >= 0 && mouseY <= hauteurToile) {
+      ajouterOiseau();
+    }
+  }
+</script>
+
+</body>
+</html>

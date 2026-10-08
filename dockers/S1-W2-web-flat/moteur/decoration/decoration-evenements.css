@@ -1,0 +1,289 @@
+/* Décoration commune des mini-sites événementiels du Zoo maritime. */
+
+:root {
+  --fond-page: #faf6f0;
+  --fond-boite: #ffffff;
+  --texte-principal: #2a1a14;
+  --texte-doux: #6a5a54;
+  --terracotta: #c2410c;
+  --terracotta-fonce: #7c2d12;
+  --terracotta-pale: #fed7aa;
+  --bordure: #e8d7c4;
+
+  --marin: #1e6091;
+  --marin-pale: #cfe5f0;
+  --forestier: #2d5016;
+  --forestier-pale: #d8e5cf;
+  --pollinisateurs: #c9942b;
+  --pollinisateurs-pale: #fef3c7;
+  --migrateurs: #3d6e8e;
+  --migrateurs-pale: #d4e0ec;
+  --general: #6a5a54;
+  --general-pale: #ede4d6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, system-ui, "Segoe UI", "Helvetica Neue", sans-serif;
+  background: var(--fond-page);
+  color: var(--texte-principal);
+  line-height: 1.6;
+}
+
+header#entete {
+  background: linear-gradient(135deg, var(--terracotta), var(--terracotta-fonce));
+  color: white;
+  padding: 60px 6vw 50px;
+  text-align: center;
+  border-bottom: 6px solid var(--pollinisateurs);
+}
+
+#entete-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  background: rgba(255,255,255,0.2);
+  margin-bottom: 14px;
+  font-weight: 700;
+  border-radius: 2px;
+}
+
+#entete-titre {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+
+#entete-sous-titre {
+  color: rgba(255,255,255,0.85);
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+
+#contenu {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 50px 6vw 80px;
+}
+
+.section-titre {
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.section-grand-titre {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--pollinisateurs);
+  padding-bottom: 8px;
+  display: inline-block;
+  font-weight: 700;
+}
+
+#articles-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin-bottom: 60px;
+}
+
+.article-vignette {
+  background: var(--fond-boite);
+  border-radius: 6px;
+  padding: 26px 24px;
+  text-decoration: none;
+  color: var(--texte-principal);
+  border: 1px solid var(--bordure);
+  border-top: 5px solid var(--general);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: block;
+}
+
+.article-vignette:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(124,45,18,0.15);
+}
+
+.article-vignette[data-couleur="marin"] { border-top-color: var(--marin); }
+.article-vignette[data-couleur="forestier"] { border-top-color: var(--forestier); }
+.article-vignette[data-couleur="pollinisateurs"] { border-top-color: var(--pollinisateurs); }
+.article-vignette[data-couleur="migrateurs"] { border-top-color: var(--migrateurs); }
+
+.article-vignette-ecosysteme {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.article-vignette-titre {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+
+.article-vignette-date {
+  font-size: 0.85rem;
+  color: var(--terracotta);
+  font-weight: 600;
+}
+
+#message-vide {
+  background: var(--fond-boite);
+  border: 2px dashed var(--bordure);
+  padding: 40px;
+  border-radius: 6px;
+  text-align: center;
+  color: var(--texte-doux);
+}
+
+.message-vide-aide {
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+#explication {
+  background: var(--terracotta-pale);
+  padding: 32px 36px;
+  border-radius: 8px;
+  border-left: 5px solid var(--terracotta);
+}
+
+#explication p {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+#explication pre {
+  background: var(--texte-principal);
+  color: #f5e8c8;
+  padding: 18px 22px;
+  border-radius: 4px;
+  margin: 14px 0;
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+code {
+  background: var(--terracotta-pale);
+  color: var(--terracotta-fonce);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  font-size: 0.9em;
+}
+
+#explication pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+footer#pied {
+  background: var(--texte-principal);
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 30px 6vw;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+footer#pied a {
+  color: var(--pollinisateurs);
+  text-decoration: none;
+}
+
+/* ----- Page article ----- */
+
+#article-entete {
+  background: linear-gradient(135deg, var(--terracotta), var(--terracotta-fonce));
+  color: white;
+  padding: 60px 6vw 50px;
+  border-bottom: 6px solid var(--pollinisateurs);
+}
+
+#article-entete[data-couleur="marin"] { background: linear-gradient(135deg, var(--marin), var(--terracotta-fonce)); }
+#article-entete[data-couleur="forestier"] { background: linear-gradient(135deg, var(--forestier), var(--terracotta-fonce)); }
+#article-entete[data-couleur="pollinisateurs"] { background: linear-gradient(135deg, var(--pollinisateurs), var(--terracotta-fonce)); }
+#article-entete[data-couleur="migrateurs"] { background: linear-gradient(135deg, var(--migrateurs), var(--terracotta-fonce)); }
+
+#article-retour {
+  display: inline-block;
+  color: rgba(255,255,255,0.75);
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+#article-retour:hover { color: var(--pollinisateurs); }
+
+#article-ecosysteme {
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+#article-titre {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.1;
+  max-width: 900px;
+}
+
+#article-date {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.85);
+  font-style: italic;
+}
+
+#article-corps {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 6vw 80px;
+  font-size: 1.05rem;
+}
+
+#article-corps p { margin-bottom: 18px; }
+#article-corps h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--terracotta);
+  margin: 28px 0 12px;
+}
+#article-corps h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--texte-principal);
+  margin: 20px 0 10px;
+}
+#article-corps ul, #article-corps ol {
+  margin: 0 0 18px 24px;
+}
+#article-corps li {
+  margin-bottom: 6px;
+}
+#article-corps blockquote {
+  border-left: 4px solid var(--pollinisateurs);
+  padding: 8px 18px;
+  margin: 18px 0;
+  background: var(--pollinisateurs-pale);
+  font-style: italic;
+}
